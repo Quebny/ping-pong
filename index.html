@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"
+        integrity="sha512-3RlxD1bW34eFKPwj9gUXEWtdSMC59QqIqHnD8O/NoTwSJhgxRizdcFVQhUMFyTp5RwLTDL0Lbcqtl8b7bFAzog=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>pin pon</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    canvas {
+        display: block
+    }
+</style>
+
+<body>
+    <script>
+        let p1, p2;
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            p1 = new Paddle(true)
+            p2 = new Paddle()
+            ball = new Ball()
+        }
+        function draw() {
+            background(55);
+            p1.draw()
+            p2.draw()
+            ball.draw()
+
+            ball.move();
+            ball.edge();
+
+            ball.collide(p1);
+            ball.collide(p2);
+
+
+            if (keyIsDown(UP_ARROW) && p2.y > p2.h / 2) {
+                p2.y -= 9;
+            }
+
+            if (keyIsDown(DOWN_ARROW) && !(p2.y > windowHeight - p2.h / 2)) {
+                p2.y += 9;
+            }
+
+            if (keyIsDown(87) && p1.y > p1.h / 2) {
+                p1.y -= 9;
+            }
+            if (keyIsDown(83) && !(p1.y > windowHeight - p1.h / 2)) {
+                p1.y += 9;
+            }
+        }
+    </script>
+    <script src="./js/paddle.js"></script>
+    <script src="./js/ball.js"></script>
+</body>
+
+</html>
